@@ -5,7 +5,6 @@ import (
 	"bwastartup/handler"
 	"bwastartup/user"
 	"log"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -24,12 +23,12 @@ func main() {
 	-> service mapping ke struct user (model)
 	->= repository save struct ke db
 	*/
-	// 	
+	//
 
 	//panggil NewRepository dari repo user
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
-	
+
 	userHandler := handler.NewUserHandler(userService)
 
 	router := gin.Default()
@@ -37,7 +36,7 @@ func main() {
 	api := router.Group("/api/v1")
 
 	api.POST("/users", userHandler.RegisterUser)
-
+	api.POST("/login", userHandler.LoginUser)
 	router.Run()
 
 }

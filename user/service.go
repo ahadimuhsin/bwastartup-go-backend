@@ -1,9 +1,14 @@
 package user
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type Service interface {
 	RegisterUser(input RegisterUserInput) (User, error)
+	Login(input LoginInput) (User, error)
 }
 
 // private
@@ -22,8 +27,9 @@ func (s *service) RegisterUser(input RegisterUserInput) (User, error) {
 	user.Email = input.Email
 	user.Occupation = input.Occupation
 	password, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
-	
-	if err != nil{
+	// user.Token = helper.TokenString(64);
+
+	if err != nil {
 		return user, err
 	}
 	//diubah ke string karena sebelumnya password bertipe byte
@@ -31,9 +37,33 @@ func (s *service) RegisterUser(input RegisterUserInput) (User, error) {
 	user.Role = "USER"
 
 	newUser, err := s.repository.Save(user)
-	if err != nil{
+	if err != nil {
 		return newUser, err
 	}
 
 	return newUser, nil
 }
+
+func (s *service) Login(input LoginInput) (User, error){
+	email := input.Email
+	password := input.Password
+
+	//cari user dengan email yg dimasukan
+	user, err:= s.repository.FindByEmail(email)
+	if err != nil{
+		return user, err
+	}
+
+	if user.ID == 0{
+		return user, errors.New("No user found with that email")
+	}
+	//bandingkan hash password dengan password
+	//parameter satu ambil data hashed password, parameter kedua password yg dimasukkan
+	 err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	 if err != nil{
+		return user, err
+	 }
+
+	 return user, nil
+}
+

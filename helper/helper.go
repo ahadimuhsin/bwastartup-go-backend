@@ -4,7 +4,11 @@ yg terdiri dari object meta dan data
 */
 package helper
 
-import "github.com/go-playground/validator/v10"
+import (
+	"math/rand"
+
+	"github.com/go-playground/validator/v10"
+)
 
 type Response struct {
 	Meta Meta        `json:"meta"` //berbentuk meta
@@ -39,4 +43,14 @@ func FormatValidationError(err error) []string {
 	}
 
 	return errors
+}
+
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#@$%^|~*")
+
+func TokenString(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }

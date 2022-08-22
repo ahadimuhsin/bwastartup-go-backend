@@ -8,6 +8,7 @@ import "gorm.io/gorm"
 type Repository interface {
 	Save(user User) (User, error) //kurung pertama adalah nama variabel dan modelnya
 	//kurung kedua adalah returnnya
+	FindByEmail(email string) (User, error)
 }
 
 //bersifat private
@@ -25,6 +26,18 @@ func (r *repository) Save(user User) (User, error) {
 
 	//cek error
 	if err!=nil{
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (r *repository) FindByEmail(email string) (User, error) {
+	//cari user dengan email tertentu
+	var user User
+	err := r.db.Where("email = ?", email).Find(&user).Error
+
+	if( err != nil){
 		return user, err
 	}
 
