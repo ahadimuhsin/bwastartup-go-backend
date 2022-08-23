@@ -3,7 +3,11 @@ package handler
 import (
 	"bwastartup/helper"
 	"bwastartup/user"
+	"errors"
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -56,21 +60,21 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 func (h *userHandler) LoginUser(c *gin.Context) {
 	//user memasukkan input: email dan password
 	//input ditangkap handler
-	
+
 	//di service mencari dengan bantuan repository user dengan email yg dimasukkan
 	//mencocokkan password
 
 	var input user.LoginInput
 	err := c.ShouldBindJSON(&input)
 
-	if err != nil{
+	if err != nil {
 		errors := helper.FormatValidationError(err)
 
 		errorMessage := gin.H{"errors": errors}
 		//response menggunakna helper
 		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
 		c.JSON(http.StatusUnprocessableEntity, response)
-		return 
+		return
 	}
 
 	//mapping dari input user ke input struct
@@ -79,11 +83,11 @@ func (h *userHandler) LoginUser(c *gin.Context) {
 	//mencocokkan password
 	loggedInUser, err := h.userService.Login(input)
 
-	if err != nil{
+	if err != nil {
 		errorMessage := gin.H{"errors": err.Error()}
 		response := helper.APIResponse("Login failed", http.StatusUnprocessableEntity, "error", errorMessage)
 		c.JSON(http.StatusUnprocessableEntity, response)
-		return 
+		return
 	}
 
 	formatter := user.FormatUser(loggedInUser, helper.TokenString(64))
@@ -93,7 +97,7 @@ func (h *userHandler) LoginUser(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *userHandler) CheckEmailAvailability(c *gin.Context){
+func (h *userHandler) CheckEmailAvailability(c *gin.Context) {
 	//tangkap input email
 	//mapping input email ke struct input
 	var input user.EmailInput
@@ -114,7 +118,7 @@ func (h *userHandler) CheckEmailAvailability(c *gin.Context){
 	//dilakukan pengecekan email sudah terdaftar atau belum
 	IsEmailAvailable, err := h.userService.IsEmailAvailable(input)
 	//jika ada error
-	if err != nil{
+	if err != nil {
 		errorMessage := gin.H{"errors": "Server Error"}
 		response := helper.APIResponse("Email checking failed", http.StatusUnprocessableEntity, "error", errorMessage)
 		c.JSON(http.StatusUnprocessableEntity, response)
@@ -122,16 +126,62 @@ func (h *userHandler) CheckEmailAvailability(c *gin.Context){
 	}
 	//atur message pengembaliannya
 	data := gin.H{
-		"is_available" : IsEmailAvailable,
+		"is_available": IsEmailAvailable,
 	}
 
 	metaMessage := "Email has been registered"
 
-	if IsEmailAvailable{
+	if IsEmailAvailable {
 		metaMessage = "Email is Available"
 	}
 
 	response := helper.APIResponse(metaMessage, http.StatusOK, "success", data)
 	c.JSON(http.StatusOK, response)
-	
+
+}
+
+func (h *userHandler) UploadAvatar(c *gin.Context) {
+	//input dari user
+	file, err := c.FormFile("avatar")
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload avatar", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	//buat folder images jika tidak ada
+	path := "images/"
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir(path, os.ModePerm)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
+	//di service, panggil repo
+	//jwt (sementara hardcode, seakan2 user yg login ID=1)
+	//repo ambil data user yg ID 1
+	//repo update data user simpan lokasi file
+	userId := 1
+	//simpan dalam format images/id-file_name
+	file_path := fmt.Sprintf("%s%d-%s", path, userId, file.Filename)
+	err = c.SaveUploadedFile(file, file_path)
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload avatar", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	_, err = h.userService.SaveAvatar(userId, file_path)
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload avatar", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	data := gin.H{"is_uploaded": true}
+	response := helper.APIResponse("Avatar uploaded succesfully", http.StatusOK, "success", data)
+	c.JSON(http.StatusOK, response)
+	// return
 }

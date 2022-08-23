@@ -6,6 +6,7 @@ package helper
 
 import (
 	// "fmt"
+	// "fmt"
 	"math/rand"
 
 	"github.com/go-playground/validator/v10"
@@ -37,23 +38,23 @@ func APIResponse(message string, code int, status string, data interface{}) Resp
 	return jsonResponse
 }
 
-func getErrorMsg(fe validator.FieldError) string {
-    switch fe.Tag() {
-        case "required":
-            return "This field is required"
-        case "lte":
-            return "Should be less than " + fe.Param()
-        case "gte":
-            return "Should be greater than " + fe.Param()
-    }
-    return "Unknown error"
-}
 
 func FormatValidationError(err error) []string {
 	var errors []string
 	// fmt.Print(err.Error());
 	for _, e := range err.(validator.ValidationErrors) {
-		errors = append(errors, e.Error())
+		// errors = append(errors, e.Error())
+		// fmt.Println(e.Field())
+		if e.Tag() == "required"{
+			errors = append(errors, e.Field() + " harus diisi")
+		}
+		if e.Tag() == "email"{
+			errors = append(errors, "Format "+e.Field()+" tidak valid")
+		}
+		if e.Field() == "Password" && e.Tag() == "gte"{
+			errors = append(errors, e.Field() + " harus lebih dari 6 karakter")
+		}
+		// fmt.Println(e.Tag())
 	}
 
 	return errors
