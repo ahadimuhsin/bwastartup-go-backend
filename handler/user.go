@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"bwastartup/auth"
 	"bwastartup/helper"
 	"bwastartup/user"
 	"errors"
@@ -14,10 +15,11 @@ import (
 
 type userHandler struct {
 	userService user.Service
+	authService auth.Service
 }
 
-func NewUserHandler(userService user.Service) *userHandler {
-	return &userHandler{userService}
+func NewUserHandler(userService user.Service, authService auth.Service) *userHandler {
+	return &userHandler{userService, authService}
 }
 
 func (h *userHandler) RegisterUser(c *gin.Context) {
@@ -48,8 +50,14 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 		return
 	}
 
-	// token, err := h.jwtService.GenerateToken()
-	token := helper.TokenString(64)
+	token, err := h.authService.GenerateToken(newUser.ID)
+
+	if err != nil {
+		response := helper.APIResponse("Registered account failed", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	// token := helper.TokenString(64)
 	formatter := user.FormatUser(newUser, token)
 	//response menggunakna helper
 	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", formatter)
@@ -89,8 +97,14 @@ func (h *userHandler) LoginUser(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, response)
 		return
 	}
+	token, err := h.authService.GenerateToken(loggedInUser.ID)
 
-	formatter := user.FormatUser(loggedInUser, helper.TokenString(64))
+	if err != nil {
+		response := helper.APIResponse("Login failed", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	formatter := user.FormatUser(loggedInUser, token)
 
 	response := helper.APIResponse("Succesfully login", http.StatusOK, "success", formatter)
 
@@ -158,13 +172,34 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 		}
 	}
 
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	userId := currentUser.ID
+
+	//!hapus file yg lama dahulu
+	//cari current root dulu
+	// dir, err := os.Getwd()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(dir)
+	// if currentUser.Avatar != "" {
+	// 	location := dir + "/"+ currentUser.Avatar
+	// 	oldFile := os.Remove(location)
+	// 	if oldFile != nil {
+	// 		fmt.Println(oldFile)
+    //     	return
+	// 	}
+	// }
+
+	//simpan dalam format images/id-file_name
+	file_path := fmt.Sprintf("%s%d-%s-%s", path, userId, helper.TokenString(10), file.Filename)
+
 	//di service, panggil repo
 	//jwt (sementara hardcode, seakan2 user yg login ID=1)
 	//repo ambil data user yg ID 1
 	//repo update data user simpan lokasi file
-	userId := 1
-	//simpan dalam format images/id-file_name
-	file_path := fmt.Sprintf("%s%d-%s", path, userId, file.Filename)
 	err = c.SaveUploadedFile(file, file_path)
 	if err != nil {
 		data := gin.H{"is_uploaded": false}

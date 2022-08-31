@@ -2,6 +2,7 @@ package auth
 
 import (
 	// "fmt"
+	"errors"
 	"log"
 	"os"
 
@@ -11,6 +12,7 @@ import (
 
 type Service interface {
 	GenerateToken(userId int) (string, error)
+	ValidateToken(token string) (*jwt.Token, error)
 }
 
 type jwtService struct {
@@ -49,4 +51,22 @@ func (s *jwtService) GenerateToken(userId int) (string, error) {
 	}
 
 	return signedToken, nil
+}
+
+func (s *jwtService) ValidateToken(encodedToken string) (*jwt.Token, error){
+	//parse token
+	token, err := jwt.Parse(encodedToken, func(token *jwt.Token) (interface{}, error){
+		 _, ok := token.Method.(*jwt.SigningMethodHMAC)
+		 //jika methodnya bukan HMAC
+		 if !ok{
+			return nil, errors.New("Invalid token")
+		 }
+		 return []byte(goDotEnvVariable("SECRET_KEY")), nil
+	})
+
+	if err != nil{
+		return token, err
+	}
+
+	return token, nil
 }
