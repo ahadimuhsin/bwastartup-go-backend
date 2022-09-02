@@ -17,13 +17,15 @@ type Campaign struct{
 	Slug				string
 	CreatedAt 			time.Time
 	UpdatedAt 			time.Time
+	//untuk relasi
+	CampaignImages		[]CampaignImage
 }
 
 type CampaignImage struct{
-	ID		int
-	CampaignId	int
-	FileName	string
-	IsPrimary	int
+	ID					int
+	CampaignId			int
+	FileName			string
+	IsPrimary			int
 	CreatedAt 			time.Time
 	UpdatedAt 			time.Time
 }

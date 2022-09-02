@@ -3,9 +3,11 @@ package main
 import (
 	// "fmt"
 	"bwastartup/auth"
+	"bwastartup/campaign"
 	"bwastartup/handler"
 	"bwastartup/helper"
 	"bwastartup/user"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -35,6 +37,22 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
+	//panggil NewRepository dari repo campaign
+	campaignRepository := campaign.NewRepository(db)
+
+	campaigns, err := campaignRepository.FindByUserId(1)
+
+	fmt.Println(len(campaigns))
+	for _, campaign := range campaigns{
+		fmt.Println(campaign.Name)
+		
+		if len(campaign.CampaignImages) > 0{
+			fmt.Println(campaign.CampaignImages[0].FileName)
+		}
+		
+	}
+
+	
 	authService := auth.NewService()
 
 	userHandler := handler.NewUserHandler(userService, authService)
