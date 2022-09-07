@@ -28,10 +28,8 @@ func FormatCampaign(campaign Campaign) CampaignFormatter{
 
 //handle slice of campaigns to use formatter
 func FormatCampaigns(campaigns []Campaign) []CampaignFormatter{
-	if len(campaigns) == 0{
-		return []CampaignFormatter{}
-	}
-	var campaignsFormatter []CampaignFormatter
+	
+	 campaignsFormatter := []CampaignFormatter{}
 	for _, campaign := range campaigns{
 		singleCampaignFormatter:= FormatCampaign(campaign)
 		campaignsFormatter = append(campaignsFormatter, singleCampaignFormatter)
