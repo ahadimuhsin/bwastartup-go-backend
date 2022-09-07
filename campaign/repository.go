@@ -30,7 +30,7 @@ func (r *repository) FindAll() ([]Campaign, error){
 func (r *repository) FindByUserId(id int) ([]Campaign, error){
 	var campaigns []Campaign
 	//Preload untuk memanggil relasi, yg didefinisikan di model, dan memanggilnya dengan kondisi
-	err := r.db.Where("id = ?", id).Preload("CampaignImages", "campaign_images.is_primary = 1").Find(&campaigns).Error
+	err := r.db.Where("user_id = ?", id).Preload("CampaignImages", "campaign_images.is_primary = 1").Find(&campaigns).Error
 
 	if err != nil{
 		return campaigns, err
