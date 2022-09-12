@@ -176,7 +176,22 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 	currentUser := c.MustGet("currentUser").(user.User)
 	//set nilai idnya ke variabel
 	userId := currentUser.ID
-
+	dir, err := os.Getwd()
+	if err != nil {
+			log.Fatal(err)
+		}
+	if currentUser.Avatar != ""{
+		location := dir + "/"+ currentUser.Avatar
+		//cek apakah file ada
+		if _, err := os.Stat(location); err == nil {
+			oldFile := os.Remove(location)
+			if oldFile != nil {
+				fmt.Println(oldFile)
+				return
+			}
+		}
+	}
+	
 	//!hapus file yg lama dahulu
 	//cari current root dulu
 	// dir, err := os.Getwd()
