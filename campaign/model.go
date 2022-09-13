@@ -1,6 +1,9 @@
 package campaign
 
-import "time"
+import (
+	"bwastartup/user"
+	"time"
+)
 
 //entity = model
 
@@ -19,6 +22,7 @@ type Campaign struct{
 	UpdatedAt 			time.Time
 	//untuk relasi
 	CampaignImages		[]CampaignImage
+	User 				user.User		
 }
 
 type CampaignImage struct{

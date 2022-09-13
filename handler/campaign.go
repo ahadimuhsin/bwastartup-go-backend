@@ -3,6 +3,7 @@ package handler
 import (
 	"bwastartup/campaign"
 	"bwastartup/helper"
+	// "fmt"
 	"net/http"
 	"strconv"
 
@@ -39,7 +40,29 @@ func (h *campaignHandler) GetCampaigns(c *gin.Context) {
 
 // route api/v1/campaigns/v1
 func (h *campaignHandler) GetCampaign(c *gin.Context) {
+	//get parameter route
 	//handler: mapping slug di url ke struct input -> service, call formatter
 	//service: inputnya struct input -> menangkap slug di url
 	//repository : get campaign by slug
+
+	var input campaign.GetCampaignDetailInput
+	//untuk menangkap uri
+	err := c.ShouldBindUri(&input)
+	// fmt.Println(input)
+	if err != nil{
+		response := helper.APIResponse("Failed to get detail of campaign", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	campaignDetail, err := h.campaignService.GetCampaign(input)
+
+	if err != nil{
+		response := helper.APIResponse("Failed to get detail of campaign", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helper.APIResponse("Campaign Detail", http.StatusOK, "success", campaign.FormatCampaignDetail(campaignDetail))
+	c.JSON(http.StatusOK, response)
 }

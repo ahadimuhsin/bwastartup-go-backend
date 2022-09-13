@@ -59,6 +59,7 @@ func main() {
 
 	//route campaign
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
+	api.GET("/campaign/:slug", campaignHandler.GetCampaign)
 	router.Run()
 
 }
