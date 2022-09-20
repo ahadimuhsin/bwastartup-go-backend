@@ -20,6 +20,7 @@ func FormatCampaign(campaign Campaign) CampaignFormatter {
 	}
 	campaignFormatter := CampaignFormatter{
 		ID:               campaign.ID,
+		Name:			  campaign.Name,
 		UserId:           campaign.UserId,
 		ShortDescription: campaign.ShortDescription,
 		GoalAmount:       campaign.GoalAmount,

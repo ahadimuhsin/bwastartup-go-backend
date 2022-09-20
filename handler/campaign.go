@@ -3,6 +3,8 @@ package handler
 import (
 	"bwastartup/campaign"
 	"bwastartup/helper"
+	"bwastartup/user"
+
 	// "fmt"
 	"net/http"
 	"strconv"
@@ -49,7 +51,7 @@ func (h *campaignHandler) GetCampaign(c *gin.Context) {
 	//untuk menangkap uri
 	err := c.ShouldBindUri(&input)
 	// fmt.Println(input)
-	if err != nil{
+	if err != nil {
 		response := helper.APIResponse("Failed to get detail of campaign", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -57,12 +59,45 @@ func (h *campaignHandler) GetCampaign(c *gin.Context) {
 
 	campaignDetail, err := h.campaignService.GetCampaign(input)
 
-	if err != nil{
+	if err != nil {
 		response := helper.APIResponse("Failed to get detail of campaign", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
 	response := helper.APIResponse("Campaign Detail", http.StatusOK, "success", campaign.FormatCampaignDetail(campaignDetail))
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *campaignHandler) CreateCampaign(c *gin.Context) {
+	//tangkap parameter dari user ke input struct
+	var input campaign.CreateCampaignInput
+
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		errors := helper.FormatValidationError(err)
+
+		errorMessage := gin.H{"errors": errors}
+		//response menggunakna helper
+		response := helper.APIResponse("Failed To Create Campaign", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+	//ambil current user dari jwt/handler
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	input.User = currentUser
+	//panggil service, parameternya input struct (dan buat slug)
+	newCampaign, err := h.campaignService.CreateCampaign(input)
+
+	if err != nil{
+		response := helper.APIResponse("Failed to save campaign", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	
+	response := helper.APIResponse("Campaign created", http.StatusOK, "error", campaign.FormatCampaign(newCampaign))
 	c.JSON(http.StatusOK, response)
 }
