@@ -7,6 +7,10 @@ type GetCampaignDetailInput struct{
 	Slug string `uri:"slug" binding:"required"`
 }
 
+type GetCampaignDetailInputById struct{
+	ID int `uri:"id" binding:"required"`
+}
+
 type CreateCampaignInput struct{
 	Name 				string `json:"name" binding:"required"`
 	ShortDescription 	string `json:"short_description" binding:"required"`

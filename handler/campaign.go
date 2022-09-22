@@ -45,7 +45,7 @@ func (h *campaignHandler) GetCampaign(c *gin.Context) {
 	//get parameter route
 	//repository : get campaign by slug
 
-	var input campaign.GetCampaignDetailInput
+	var input campaign.GetCampaignDetailInputById
 	//untuk menangkap uri
 	err := c.ShouldBindUri(&input)
 	// fmt.Println(input)
@@ -99,5 +99,50 @@ func (h *campaignHandler) CreateCampaign(c *gin.Context) {
 
 	
 	response := helper.APIResponse("Campaign created", http.StatusOK, "error", campaign.FormatCampaign(newCampaign))
+	c.JSON(http.StatusOK, response)
+}
+
+func(h *campaignHandler) UpdateCampaign(c *gin.Context){
+	//user masukkan input
+	var slug campaign.GetCampaignDetailInputById
+	//untuk menangkap uri
+	err := c.ShouldBindUri(&slug)
+	// fmt.Println(input)
+	if err != nil {
+		response := helper.APIResponse("Failed to get data to update campaign", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	//handler
+	//mapping input ke input struct
+	var inputData campaign.CreateCampaignInput
+
+	err = c.ShouldBindJSON(&inputData)
+	if err != nil {
+		errors := helper.FormatValidationError(err)
+
+		errorMessage := gin.H{"errors": errors}
+		//response menggunakna helper
+		response := helper.APIResponse("Failed To Send Data to Update Campaign", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	//ambil current user dari jwt/handler
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	inputData.User = currentUser
+
+	//inpout dari user dan juga input yg ada di uri (passing ke service)
+	updatedCampaign, err := h.campaignService.UpdateCampaign(slug, inputData)
+	if err != nil {
+		response := helper.APIResponse("Failed to update campaign", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	//service (findByslug, tangkap parameter)
+	//repository update data campaign
+	response := helper.APIResponse("Campaign Updated", http.StatusOK, "error", campaign.FormatCampaign(updatedCampaign))
 	c.JSON(http.StatusOK, response)
 }
