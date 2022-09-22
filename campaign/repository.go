@@ -9,7 +9,7 @@ import (
 type Repository interface {
 	FindAll() ([]Campaign, error) //pakai slice karena mengembalikan banyak data
 	FindByUserId(id int) ([]Campaign, error)
-	FindByID(ID int) (Campaign, error)
+	FindBySlug(Slug string) (Campaign, error)
 	Save(campaign Campaign) (Campaign, error)
 }
 
@@ -46,10 +46,10 @@ func (r *repository) FindByUserId(id int) ([]Campaign, error) {
 
 }
 
-func (r *repository) FindByID(ID int) (Campaign, error) {
+func (r *repository) FindBySlug(Slug string) (Campaign, error) {
 	var campaign Campaign
 	//Preload untuk memanggil relasi, yg didefinisikan di model, dan memanggilnya dengan kondisi
-	err := r.db.Where("id = ?", ID).Preload("CampaignImages").Preload("User").Find(&campaign).Error
+	err := r.db.Where("slug= ?", Slug).Preload("CampaignImages").Preload("User").Find(&campaign).Error
 	// fmt.Println(Slug)
 	if err != nil {
 		return campaign, err

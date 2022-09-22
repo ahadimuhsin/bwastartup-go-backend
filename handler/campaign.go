@@ -43,8 +43,6 @@ func (h *campaignHandler) GetCampaigns(c *gin.Context) {
 // route api/v1/campaigns/v1
 func (h *campaignHandler) GetCampaign(c *gin.Context) {
 	//get parameter route
-	//handler: mapping slug di url ke struct input -> service, call formatter
-	//service: inputnya struct input -> menangkap slug di url
 	//repository : get campaign by slug
 
 	var input campaign.GetCampaignDetailInput
@@ -57,6 +55,8 @@ func (h *campaignHandler) GetCampaign(c *gin.Context) {
 		return
 	}
 
+	//handler: mapping slug di url ke struct input -> service, call formatter
+	//service: inputnya struct input -> menangkap slug di url
 	campaignDetail, err := h.campaignService.GetCampaign(input)
 
 	if err != nil {

@@ -4,7 +4,7 @@ import "bwastartup/user"
 
 //untuk mengambil input dari user
 type GetCampaignDetailInput struct{
-	ID int `uri:"id" binding:"required"`
+	Slug string `uri:"slug" binding:"required"`
 }
 
 type CreateCampaignInput struct{

@@ -43,7 +43,7 @@ func (s *service) GetCampaigns(userId int) ([]Campaign, error) {
 }
 
 func (s *service) GetCampaign(input GetCampaignDetailInput) (Campaign, error) {
-	campaign, err := s.repository.FindByID(input.ID)
+	campaign, err := s.repository.FindBySlug(input.Slug)
 	if err != nil {
 		return campaign, err
 	}
