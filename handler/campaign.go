@@ -4,6 +4,10 @@ import (
 	"bwastartup/campaign"
 	"bwastartup/helper"
 	"bwastartup/user"
+	"errors"
+	"fmt"
+	"log"
+	"os"
 
 	// "fmt"
 	"net/http"
@@ -91,18 +95,17 @@ func (h *campaignHandler) CreateCampaign(c *gin.Context) {
 	//panggil service, parameternya input struct (dan buat slug)
 	newCampaign, err := h.campaignService.CreateCampaign(input)
 
-	if err != nil{
+	if err != nil {
 		response := helper.APIResponse("Failed to save campaign", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	
 	response := helper.APIResponse("Campaign created", http.StatusOK, "error", campaign.FormatCampaign(newCampaign))
 	c.JSON(http.StatusOK, response)
 }
 
-func(h *campaignHandler) UpdateCampaign(c *gin.Context){
+func (h *campaignHandler) UpdateCampaign(c *gin.Context) {
 	//user masukkan input
 	var slug campaign.GetCampaignDetailInputById
 	//untuk menangkap uri
@@ -145,4 +148,76 @@ func(h *campaignHandler) UpdateCampaign(c *gin.Context){
 	//repository update data campaign
 	response := helper.APIResponse("Campaign Updated", http.StatusOK, "error", campaign.FormatCampaign(updatedCampaign))
 	c.JSON(http.StatusOK, response)
+}
+
+/*
+handler: tangkap input dan ubah ke struct input, save image ke folder
+service (kondisi manggil poin 2 di repo, panggil repo poin 1)
+repository:
+1. save image
+2. ubah is_primary true jadi false
+
+*/
+
+func (h *campaignHandler) UploadImage(c *gin.Context) {
+	var input campaign.CreateCampaignImageInput
+	//form pakai shouldBin
+	err := c.ShouldBind(&input)
+	if err != nil {
+		errors := helper.FormatValidationError(err)
+		errorMessage := gin.H{"errors": errors}
+		//response menggunakna helper
+		response := helper.APIResponse("Failed To Send Data to Upload Campaign Image", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	input.User = currentUser
+	userId := currentUser.ID
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload campaign image using form", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	//buat folder images jika tidak ada
+	path := "campaign-images/"
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir(path, os.ModePerm)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+	
+	
+	// fmt.Println(file.Filename)
+	//simpan dalam format images/id-file_name
+	file_path := fmt.Sprintf("campaign-images/%d-%s", userId, file.Filename)
+
+	err = c.SaveUploadedFile(file, file_path)
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload campaign image to folder", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	_, err = h.campaignService.SaveCampaignImage(input, file_path)
+	if err != nil {
+		data := gin.H{"is_uploaded": false}
+		response := helper.APIResponse("Failed to upload campaign image in service layer", http.StatusBadRequest, "error", data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	data := gin.H{"is_uploaded": true}
+	response := helper.APIResponse("Campaign Image uploaded succesfully", http.StatusOK, "success", data)
+	c.JSON(http.StatusOK, response)
+	// return
 }
