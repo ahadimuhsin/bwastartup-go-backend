@@ -6,7 +6,11 @@ import (
 	"bwastartup/campaign"
 	"bwastartup/handler"
 	"bwastartup/helper"
+	"bwastartup/transaction"
+
+	// "bwastartup/transaction"
 	"bwastartup/user"
+
 	// "fmt"
 	"log"
 	"net/http"
@@ -39,14 +43,18 @@ func main() {
 
 	//panggil NewRepository dari repo campaign
 	campaignRepository := campaign.NewRepository(db)
-
 	campaignService := campaign.NewService(campaignRepository)
+
+	//module transaction
+	transactionRepository := transaction.NewRepository(db)
+	transactionService := transaction.NewService(transactionRepository, campaignRepository)
 	// campaigns, _ := campaignService.GetCampaigns(2);
 	// fmt.Println(len(campaigns));
 	authService := auth.NewService()
 
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
+	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	router := gin.Default()
 	router.Static("/images", "./images")
@@ -63,19 +71,23 @@ func main() {
 	api.GET("/campaign/:id", campaignHandler.GetCampaign)
 	api.PUT("/campaign/:id", authMiddleware(authService, userService), campaignHandler.UpdateCampaign)
 	api.POST("/campaign-images", authMiddleware(authService, userService), campaignHandler.UploadImage)
+
+	//route transactions
+	api.GET("/campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransactions)
 	router.Run()
 
 }
-//*middleware auth
-//butuh variabel autService dan userService agar bisa menggunakan kedua service tersebut
-func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc{
-	
-	return func (c *gin.Context){
+
+// *middleware auth
+// butuh variabel autService dan userService agar bisa menggunakan kedua service tersebut
+func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
+
+	return func(c *gin.Context) {
 		//ambil nilai header Authorization: Bearer token
 		authHeader := c.GetHeader("Authorization")
 
 		//cek apakah di dalam string authHeader, ada kata Bearer
-		if !strings.Contains(authHeader, "Bearer"){
+		if !strings.Contains(authHeader, "Bearer") {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
@@ -83,20 +95,20 @@ func authMiddleware(authService auth.Service, userService user.Service) gin.Hand
 		//ambil token dengan memisahkan authHeader berdasarkan spasi
 		tokenString := ""
 		arrayToken := strings.Split(authHeader, " ")
-		if len(arrayToken) == 2{
+		if len(arrayToken) == 2 {
 			tokenString = arrayToken[1]
 		}
 
 		//validasi token
 		token, err := authService.ValidateToken(tokenString)
 
-		if err != nil{
+		if err != nil {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
 		claim, ok := token.Claims.(jwt.MapClaims)
-		if !ok || !token.Valid{
+		if !ok || !token.Valid {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
@@ -107,7 +119,7 @@ func authMiddleware(authService auth.Service, userService user.Service) gin.Hand
 
 		user, err := userService.GetUserById(userId)
 
-		if err != nil{
+		if err != nil {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
@@ -117,4 +129,3 @@ func authMiddleware(authService auth.Service, userService user.Service) gin.Hand
 	}
 
 }
-
