@@ -35,6 +35,9 @@ func (h *transactionHandler) GetCampaignTransactions(c *gin.Context) {
 	//set nilai idnya ke variabel
 	input.User = currentUser
 
+	//panggil service, input struct sebagai parameter
+	//service : panggil repository
+	//repo: mencari data transaction suatu campaign
 	transactions, err := h.service.GetTransactionByCampaignID(input)
 
 	if err != nil {
@@ -47,6 +50,26 @@ func (h *transactionHandler) GetCampaignTransactions(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-//panggil service, input struct sebagai parameter
-//service : panggil repository
-//repo: mencari data transaction suatu campaign
+
+func (h *transactionHandler) GetUserTransactions(c *gin.Context){
+	// handler: ambil nilai user dari jwt
+	//ambil current user dari jwt/handler
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	userID := currentUser.ID
+	//service
+	//repo -> ambil data transaction (preload campaign)
+	transactions, err := h.service.GetTransactionByUserID(userID)
+
+	if err != nil{
+		response := helper.APIResponse("Failed to get list of user's transactions", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	
+
+	response := helper.APIResponse("User's Transactions", http.StatusOK, "success", transactions)
+	c.JSON(http.StatusOK, response)
+
+}
