@@ -69,7 +69,11 @@ func (h *transactionHandler) GetUserTransactions(c *gin.Context){
 	}
 	
 
-	response := helper.APIResponse("User's Transactions", http.StatusOK, "success", transactions)
+	response := helper.APIResponse("User's Transactions", http.StatusOK, "success", transaction.FormatUserTransactions(transactions))
 	c.JSON(http.StatusOK, response)
-
 }
+
+//input nominal dari user
+//tangkap input, mapping ke input struct
+//panggil service buat transaksi, manggil sistem midtrans
+//panggi repo, create new transaction
