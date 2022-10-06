@@ -73,7 +73,42 @@ func (h *transactionHandler) GetUserTransactions(c *gin.Context){
 	c.JSON(http.StatusOK, response)
 }
 
-//input nominal dari user
-//tangkap input, mapping ke input struct
-//panggil service buat transaksi, manggil sistem midtrans
-//panggi repo, create new transaction
+func (h *transactionHandler) CreateTransaction(c *gin.Context){
+
+	//input nominal dari user
+	//tangkap input, mapping ke input struct
+	var input transaction.CreateTransactionInput
+
+	err := c.ShouldBindJSON(&input)
+
+	if err != nil {
+		errors := helper.FormatValidationError(err)
+
+		errorMessage := gin.H{"errors": errors}
+		//response menggunakna helper
+		response := helper.APIResponse("Failed To Create Transaction", http.StatusUnprocessableEntity, "error", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, response)
+		return
+	}
+
+	//ambil current user dari jwt/handler
+	//ambil data user dari Context gin, dari auth Middleware
+	currentUser := c.MustGet("currentUser").(user.User)
+	//set nilai idnya ke variabel
+	input.User = currentUser
+
+	//panggil service buat transaksi, manggil sistem midtrans
+	//panggi repo, create new transaction
+	newTransaction, err := h.service.CreateTransaction(input)
+
+	if err != nil {
+		response := helper.APIResponse("Failed to save transaction", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helper.APIResponse("Transaction Created", http.StatusOK, "success", newTransaction)
+	c.JSON(http.StatusOK, response)
+}
+
+

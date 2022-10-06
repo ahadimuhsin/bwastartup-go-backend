@@ -6,6 +6,7 @@ import (
 	"bwastartup/campaign"
 	"bwastartup/handler"
 	"bwastartup/helper"
+	"bwastartup/payment"
 	"bwastartup/transaction"
 
 	// "bwastartup/transaction"
@@ -45,9 +46,11 @@ func main() {
 	campaignRepository := campaign.NewRepository(db)
 	campaignService := campaign.NewService(campaignRepository)
 
+	//paymentService
+	paymentService := payment.NewService()
 	//module transaction
 	transactionRepository := transaction.NewRepository(db)
-	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 	// campaigns, _ := campaignService.GetCampaigns(2);
 	// fmt.Println(len(campaigns));
 	authService := auth.NewService()
@@ -75,6 +78,7 @@ func main() {
 	//route transactions
 	api.GET("/campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransactions)
 	api.GET("/transactions", authMiddleware(authService, userService), transactionHandler.GetUserTransactions)
+	api.POST("/transaction", authMiddleware(authService, userService), transactionHandler.CreateTransaction)
 	router.Run()
 
 }

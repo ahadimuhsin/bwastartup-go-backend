@@ -101,7 +101,7 @@ func (h *campaignHandler) CreateCampaign(c *gin.Context) {
 		return
 	}
 
-	response := helper.APIResponse("Campaign created", http.StatusOK, "error", campaign.FormatCampaign(newCampaign))
+	response := helper.APIResponse("Campaign created", http.StatusOK, "success", campaign.FormatCampaign(newCampaign))
 	c.JSON(http.StatusOK, response)
 }
 
@@ -146,7 +146,7 @@ func (h *campaignHandler) UpdateCampaign(c *gin.Context) {
 	}
 	//service (findByslug, tangkap parameter)
 	//repository update data campaign
-	response := helper.APIResponse("Campaign Updated", http.StatusOK, "error", campaign.FormatCampaign(updatedCampaign))
+	response := helper.APIResponse("Campaign Updated", http.StatusOK, "success", campaign.FormatCampaign(updatedCampaign))
 	c.JSON(http.StatusOK, response)
 }
 
