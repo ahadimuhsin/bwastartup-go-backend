@@ -1,6 +1,8 @@
 package payment
 
 import (
+	"bwastartup/campaign"
+	"bwastartup/transaction"
 	"bwastartup/user"
 	"log"
 	"os"
@@ -12,13 +14,16 @@ import (
 )
 
 type service struct {
+	transactionRepository transaction.Repository
+	campaignRepository    campaign.Repository
 }
 
 type Service interface {
 	GetPaymentUrl(transaction Transaction, user user.User) (string, error)
+	ProcessPayment(input transaction.TransactionNotificationInput) error
 }
 
-func NewService() *service {
+func NewService(transactionRepository transaction.Repository, campaignRepository campaign.Repository) *service {
 	return &service{}
 }
 
@@ -62,4 +67,49 @@ func (s *service) GetPaymentUrl(transaction Transaction, user user.User) (string
 	}
 
 	return snapTokenResp.RedirectURL, nil
+}
+
+func (s *service) ProcessPayment(input transaction.TransactionNotificationInput) error {
+	//ambil data transaksi berdasarkan order id
+	transaction_id := input.OrderID
+
+	transaction, err := s.transactionRepository.GetByOrderID(transaction_id)
+
+	if err != nil {
+		return err
+	}
+
+	if input.PaymentType == "credit_card" && input.TransactionStatus == "capture" && input.FraudStatus == "accept" {
+		transaction.Status = "paid"
+	} else if input.TransactionStatus == "settlement" {
+		transaction.Status = "paid"
+	} else if input.TransactionStatus == "deny" || input.TransactionStatus == "expire" || input.TransactionStatus == "cancel" {
+		transaction.Status = "cancelled"
+	}
+
+	//update data status transaction
+	updatedTransaction, err := s.transactionRepository.Update(transaction)
+	if err != nil {
+		return err
+	}
+
+	campaign, err := s.campaignRepository.FindById(updatedTransaction.CampaignID)
+
+	if err != nil {
+		return err
+	}
+
+	//update backer count dan current amount
+	if updatedTransaction.Status == "paid" {
+		campaign.BackerCount = campaign.BackerCount + 1
+		campaign.CurrentAmount = campaign.CurrentAmount + updatedTransaction.Amount
+
+		_, err := s.campaignRepository.Update(campaign)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

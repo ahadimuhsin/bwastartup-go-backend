@@ -45,19 +45,25 @@ func main() {
 	//panggil NewRepository dari repo campaign
 	campaignRepository := campaign.NewRepository(db)
 	campaignService := campaign.NewService(campaignRepository)
+	
+	
 
-	//paymentService
-	paymentService := payment.NewService()
 	//module transaction
 	transactionRepository := transaction.NewRepository(db)
+
+	//paymentService
+	paymentService := payment.NewService(transactionRepository, campaignRepository)
+
 	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 	// campaigns, _ := campaignService.GetCampaigns(2);
 	// fmt.Println(len(campaigns));
 	authService := auth.NewService()
 
+	
+
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
-	transactionHandler := handler.NewTransactionHandler(transactionService)
+	transactionHandler := handler.NewTransactionHandler(transactionService, paymentService)
 
 	router := gin.Default()
 	router.Static("/images", "./images")
