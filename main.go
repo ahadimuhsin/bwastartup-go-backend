@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"gorm.io/driver/mysql"
@@ -45,27 +46,24 @@ func main() {
 	//panggil NewRepository dari repo campaign
 	campaignRepository := campaign.NewRepository(db)
 	campaignService := campaign.NewService(campaignRepository)
-	
-	
 
 	//module transaction
 	transactionRepository := transaction.NewRepository(db)
 
 	//paymentService
-	paymentService := payment.NewService(transactionRepository, campaignRepository)
+	paymentService := payment.NewService()
 
 	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 	// campaigns, _ := campaignService.GetCampaigns(2);
 	// fmt.Println(len(campaigns));
 	authService := auth.NewService()
 
-	
-
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
-	transactionHandler := handler.NewTransactionHandler(transactionService, paymentService)
+	transactionHandler := handler.NewTransactionHandler(transactionService)
 
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.Static("/images", "./images")
 	api := router.Group("/api/v1")
 	// route authentication
@@ -73,6 +71,7 @@ func main() {
 	api.POST("/login", userHandler.LoginUser)
 	api.POST("/email-checker", userHandler.CheckEmailAvailability)
 	api.POST("/upload-avatar", authMiddleware(authService, userService), userHandler.UploadAvatar)
+	api.GET("/users/fetch", authMiddleware(authService, userService), userHandler.FetchUser)
 
 	//route campaign
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
