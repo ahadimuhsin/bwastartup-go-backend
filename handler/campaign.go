@@ -122,9 +122,9 @@ func (h *campaignHandler) UpdateCampaign(c *gin.Context) {
 
 	err = c.ShouldBindJSON(&inputData)
 	if err != nil {
-		errors := helper.FormatValidationError(err)
+		// errors := helper.FormatValidationError(err)
 
-		errorMessage := gin.H{"errors": errors}
+		errorMessage := gin.H{"errors": "Terjadi Kesalahan"}
 		//response menggunakna helper
 		response := helper.APIResponse("Failed To Send Data to Update Campaign", http.StatusUnprocessableEntity, "error", errorMessage)
 		c.JSON(http.StatusUnprocessableEntity, response)
