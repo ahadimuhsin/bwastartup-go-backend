@@ -187,7 +187,7 @@ func (h *campaignHandler) UploadImage(c *gin.Context) {
 	}
 
 	//buat folder images jika tidak ada
-	path := "campaign-images/"
+	path := "images/"
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		err := os.Mkdir(path, os.ModePerm)
 		if err != nil {
@@ -198,7 +198,7 @@ func (h *campaignHandler) UploadImage(c *gin.Context) {
 	
 	// fmt.Println(file.Filename)
 	//simpan dalam format images/id-file_name
-	file_path := fmt.Sprintf("campaign-images/%d-%s", userId, file.Filename)
+	file_path := fmt.Sprintf("%scampaign-%d-%d-%s", path, input.CampaignID, userId, file.Filename)
 
 	err = c.SaveUploadedFile(file, file_path)
 	if err != nil {
