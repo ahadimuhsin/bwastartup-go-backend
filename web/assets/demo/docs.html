@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/datatables.min.css">
+    <link rel="stylesheet" href="../css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/bootadmin.min.css">
+
+    <title>Documentation | BootAdmin</title>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+        <a class="navbar-brand" href="../index.html">BootAdmin</a>
+
+        <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-envelope"></i> 5</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-bell"></i> 3</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown"><i
+                            class="fa fa-user"></i> John Doe</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <div class="sidebar sidebar-dark bg-dark">
+            <ul class="list-unstyled">
+                <li><a href="../demo.html"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+                <li>
+                    <a href="#sm_base" data-toggle="collapse">
+                        <i class="fa fa-fw fa-cube"></i> Base
+                    </a>
+                    <ul id="sm_base" class="list-unstyled collapse">
+                        <li><a href="base/colors.html">Colors</a></li>
+                        <li><a href="base/typography.html">Typography</a></li>
+                        <li><a href="base/tables.html">Tables</a></li>
+                        <li><a href="base/progress.html">Progress</a></li>
+                        <li><a href="base/modal.html">Modal</a></li>
+                        <li><a href="base/alerts.html">Alerts</a></li>
+                        <li><a href="base/popover.html">Popover</a></li>
+                        <li><a href="base/tooltip.html">Tooltip</a></li>
+                        <li><a href="base/dropdown.html">Dropdown</a></li>
+                        <li><a href="base/navs.html">Navs</a></li>
+                        <li><a href="base/collapse.html">Collapse</a></li>
+                        <li><a href="base/lists.html">Lists</a></li>
+                    </ul>
+                </li>
+                <li><a href="icons.html"><i class="fa fa-fw fa-flag"></i> Icons</a></li>
+                <li><a href="buttons.html"><i class="fa fa-fw fa-toggle-on"></i> Buttons</a></li>
+                <li><a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a></li>
+                <li><a href="datatables.html"><i class="fa fa-fw fa-table"></i> Datatables</a></li>
+                <li><a href="cards.html"><i class="fa fa-fw fa-address-card"></i> Cards</a></li>
+                <li><a href="calendar.html"><i class="fa fa-fw fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="charts.html"><i class="fa fa-fw fa-chart-pie"></i> Charts</a></li>
+                <li><a href="maps.html"><i class="fa fa-fw fa-map-marker-alt"></i> Maps</a></li>
+                <li>
+                    <a href="#sm_examples" data-toggle="collapse">
+                        <i class="fa fa-fw fa-lightbulb"></i> Examples
+                    </a>
+                    <ul id="sm_examples" class="list-unstyled collapse">
+                        <li><a href="examples/blank.html">Blank/Starter</a></li>
+                        <li><a href="examples/pricing.html">Pricing</a></li>
+                        <li><a href="examples/invoice.html">Invoice</a></li>
+                        <li><a href="examples/faq.html">FAQ</a></li>
+                        <li><a href="examples/login.html">Login</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="docs.html"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="content p-4">
+
+            <h2 class="mb-4">Documentation</h2>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Installation
+                </div>
+                <div class="card-body">
+                    <p>Installation is as simple as downloading the files from the <a
+                            href="https://github.com/kjdion84/bootadmin">BootAdmin Github Repo</a> and including them in
+                        your project.</p>
+
+                    <p>The following CSS assets are required:</p>
+                    <ul>
+                        <li>css/bootstrap.min.css</li>
+                        <li>css/fontawesome-all.min.css</li>
+                        <li>css/bootadmin.min.css</li>
+                    </ul>
+
+                    <p>The following JS assets are required:</p>
+                    <ul>
+                        <li>js/jquery.min.js</li>
+                        <li>js/bootstrap.bundle.min.js</li>
+                        <li>js/bootadmin.min.js</li>
+                    </ul>
+
+                    <p>You must also include the webfonts folder for FontAwesome to work:</p>
+                    <ul>
+                        <li>webfonts/*</li>
+                    </ul>
+
+                    <p>The following assets are optional if you want to use their functionality:</p>
+                    <ul class="mb-0">
+                        <li>datatables.min.*</li>
+                        <li>moment.min.js (if using fullcalendar)</li>
+                        <li>fullcalendar.min.*</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Starter Template
+                </div>
+                <div class="card-body">
+                    <p>You can check out the source code of the <a href="examples/blank.html">starter template</a>, or
+                        copy and paste the following code:</p>
+                    <pre class="p-4 bg-light text-info mb-0">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/fontawesome-all.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootadmin.min.css&quot;&gt;
+
+    &lt;title&gt;BootAdmin&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-light&quot;&gt;
+
+&lt;nav class=&quot;navbar navbar-expand navbar-dark bg-primary&quot;&gt;
+    &lt;a class=&quot;sidebar-toggle mr-3&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-bars&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;BootAdmin&lt;/a&gt;
+
+    &lt;div class=&quot;navbar-collapse collapse&quot;&gt;
+        &lt;ul class=&quot;navbar-nav ml-auto&quot;&gt;
+            &lt;li class=&quot;nav-item&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;&lt;i class=&quot;fa fa-envelope&quot;&gt;&lt;/i&gt; 5&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&quot;nav-item&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;&lt;i class=&quot;fa fa-bell&quot;&gt;&lt;/i&gt; 3&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                &lt;a href=&quot;#&quot; id=&quot;dd_user&quot; class=&quot;nav-link dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt; John Doe&lt;/a&gt;
+                &lt;div class=&quot;dropdown-menu dropdown-menu-right&quot; aria-labelledby=&quot;dd_user&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;dropdown-item&quot;&gt;Profile&lt;/a&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;dropdown-item&quot;&gt;Logout&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;div class=&quot;d-flex&quot;&gt;
+    &lt;div class=&quot;sidebar sidebar-dark bg-dark&quot;&gt;
+        &lt;ul class=&quot;list-unstyled&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Menu Item&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;#sm_expand_1&quot; data-toggle=&quot;collapse&quot;&gt;
+                    &lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Expandable Menu Item
+                &lt;/a&gt;
+                &lt;ul id=&quot;sm_expand_1&quot; class=&quot;list-unstyled collapse&quot;&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Menu Item&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Menu Item&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Menu Item&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;content p-4&quot;&gt;
+        &lt;h2 class=&quot;mb-4&quot;&gt;Blank/Starter&lt;/h2&gt;
+
+        &lt;div class=&quot;card mb-4&quot;&gt;
+            &lt;div class=&quot;card-body&quot;&gt;
+                This is a blank page you can use as a starting point.
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/bootadmin.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Usage
+                </div>
+                <div class="card-body">
+                    <p>It is important to note that BootAdmin utilizes Bootstrap 4 and FontAwesome 5 Free. Anything that
+                        is possible with these frameworks is possible with BootAdmin.</p>
+                    <p>You can also optionally use a couple of additional libraries such as Datatables and Fullcalendar.
+                    </p>
+                    <p>Please see the docs for each in order to learn what you can do:</p>
+                    <ul class="mb-0">
+                        <li><a href="https://getbootstrap.com/" target="_blank">Bootstrap 4 Docs</a></li>
+                        <li><a href="https://fontawesome.com/icons?d=gallery&amp;m=free" target="_blank">FontAwesome 5
+                                Free Fonts</a></li>
+                        <li><a href="https://datatables.net/" target="_blank">Datatables Docs</a></li>
+                        <li><a href="https://fullcalendar.io/" target="_blank">Fullcalendar Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Changing Colors etc.
+                </div>
+                <div class="card-body">
+                    <p>Adjusting things like the primary color to something other than the default Bootstrap 4 blue is
+                        simple.</p>
+                    <p>You can use SASS, or this awesome <a href="https://bootstrap.build/"
+                            target="_blank">Bootstrap.build</a> tool to adjust and compile using the colors you want.
+                    </p>
+                    <p>Then you can use your own <span class="bg-light text-info">bootstrap.min.css</span> file instead
+                        of the one that comes with BootAdmin.</p>
+                    <p class="mb-0">The same logic applies for things like fonts. To use Google Fonts, just include the
+                        CSS and add the font family to your own custom CSS.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Navbar
+                </div>
+                <div class="card-body">
+                    <p>The top navbar uses Bootstrap 4 Code. See the <a
+                            href="https://getbootstrap.com/docs/4.1/components/navbar/" target="_blank">Bootstrap 4
+                            Navbar Docs</a> for more information.</p>
+                    <p class="mb-0">
+                        Changing colors is as simple as using classes like <span
+                            class="bg-light text-info">navbar-dark</span> and <span
+                            class="bg-light text-info">bg-dark</span>.
+                        Or for a lighter scheme, you can try <span class="bg-light text-info">navbar-light</span> and
+                        <span class="bg-light text-info">bg-light</span>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Sidebar
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">Styling</h5>
+                    <p>The sidebar colors can be customized just as easily as the navbar.</p>
+                    <p>
+                        Simply use classes like <span class="bg-light text-info">sidebar-dark</span> and <span
+                            class="bg-light text-info">bg-dark</span>.
+                        Or for a lighter scheme, you can try <span class="bg-light text-info">sidebar-light</span> and
+                        <span class="bg-light text-info">bg-light</span>.
+                    </p>
+
+                    <h5 class="mb-3">Menu Items</h5>
+                    <p>BootAdmin supports single-level and multi-level collapsing menu items.</p>
+                    <p>For single-level menu items, simply use:</p>
+                    <pre
+                        class="p-4 bg-light text-info">&lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Menu Item&lt;/a&gt;&lt;/li&gt;</pre>
+                    <p>For multi-level collapsing menu items, use:</p>
+                    <pre class="p-4 bg-light text-info">&lt;li&gt;
+    &lt;a href=&quot;#sm_expand_1&quot; data-toggle=&quot;collapse&quot;&gt;
+        &lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Expandable Menu Item
+    &lt;/a&gt;
+    &lt;ul id=&quot;sm_expand_1&quot; class=&quot;list-unstyled collapse&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;</pre>
+                    <p>Note that each multi-level menu item must have a unique identifier e.g. <span
+                            class="bg-light text-info">sm_expand_1</span>.</p>
+                    <p>To set a menu item to appear as active, simply add the <span
+                            class="bg-light text-info">.active</span> class to the menu item <span
+                            class="bg-light text-info">li</span>.</p>
+                    <p>In order to set pre-expanded active multi-level items, use the following code:</p>
+                    <pre class="p-4 bg-light text-info">&lt;li&gt;
+    &lt;a href=&quot;#sm_expand_1&quot; data-toggle=&quot;collapse&quot; aria-expanded=&quot;true&quot;&gt;
+        &lt;i class=&quot;fa fa-fw fa-link&quot;&gt;&lt;/i&gt; Expandable Menu Item
+    &lt;/a&gt;
+    &lt;ul id=&quot;sm_expand_1&quot; class=&quot;list-unstyled collapse show&quot;&gt;
+        &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Submenu Item&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;</pre>
+                    <p>Note the use of <span class="bg-light text-info">aria-expanded="true"</span>, <span
+                            class="bg-light text-info">.show</span>, and <span
+                            class="bg-light text-info">.active</span>.</p>
+
+                    <h5 class="mb-3">Width &amp; Height</h5>
+                    <p>If your navbar changes in height you will have to adjust the sidebar CSS using your own custom
+                        CSS file accordingly:</p>
+                    <pre class="p-4 bg-light text-info">.sidebar {
+    min-width: 230px;
+    max-width: 230px;
+    min-height: calc(100vh - 49px);
+}
+.sidebar.toggled {
+    margin-left: -230px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -230px;
+    }
+}</pre>
+                    <p>You would simply change <span class="bg-light text-info">49px</span> to the new height of your
+                        navbar.</p>
+                    <p class="mb-0">You can also optionally change <span class="bg-light text-info">230px</span> to the
+                        width you want your sidebar to be.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-white font-weight-bold">
+                    Issues &amp; Support
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">Please use the <a href="https://github.com/kjdion84/bootadmin/issues">BootAdmin
+                            Github Issues</a> for bug reports, questions, and support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datatables.min.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/fullcalendar.min.js"></script>
+    <script src="../js/bootadmin.min.js"></script>
+
+</body>
+
+</html>

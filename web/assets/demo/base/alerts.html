@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../css/datatables.min.css">
+    <link rel="stylesheet" href="../../css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../../css/bootadmin.min.css">
+
+    <title>Alerts | BootAdmin</title>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+        <a class="navbar-brand" href="../../index.html">BootAdmin</a>
+
+        <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-envelope"></i> 5</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-bell"></i> 3</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown"><i
+                            class="fa fa-user"></i> John Doe</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <div class="sidebar sidebar-dark bg-dark">
+            <ul class="list-unstyled">
+                <li><a href="../../demo.html"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+                <li>
+                    <a href="#sm_base" data-toggle="collapse" aria-expanded="true">
+                        <i class="fa fa-fw fa-cube"></i> Base
+                    </a>
+                    <ul id="sm_base" class="list-unstyled collapse show">
+                        <li><a href="colors.html">Colors</a></li>
+                        <li><a href="typography.html">Typography</a></li>
+                        <li><a href="tables.html">Tables</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                        <li><a href="modal.html">Modal</a></li>
+                        <li class="active"><a href="alerts.html">Alerts</a></li>
+                        <li><a href="popover.html">Popover</a></li>
+                        <li><a href="tooltip.html">Tooltip</a></li>
+                        <li><a href="dropdown.html">Dropdown</a></li>
+                        <li><a href="navs.html">Navs</a></li>
+                        <li><a href="collapse.html">Collapse</a></li>
+                        <li><a href="lists.html">Lists</a></li>
+                    </ul>
+                </li>
+                <li><a href="../icons.html"><i class="fa fa-fw fa-flag"></i> Icons</a></li>
+                <li><a href="../buttons.html"><i class="fa fa-fw fa-toggle-on"></i> Buttons</a></li>
+                <li><a href="../forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a></li>
+                <li><a href="../datatables.html"><i class="fa fa-fw fa-table"></i> Datatables</a></li>
+                <li><a href="../cards.html"><i class="fa fa-fw fa-address-card"></i> Cards</a></li>
+                <li><a href="../calendar.html"><i class="fa fa-fw fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="../charts.html"><i class="fa fa-fw fa-chart-pie"></i> Charts</a></li>
+                <li><a href="../maps.html"><i class="fa fa-fw fa-map-marker-alt"></i> Maps</a></li>
+                <li>
+                    <a href="#sm_examples" data-toggle="collapse">
+                        <i class="fa fa-fw fa-lightbulb"></i> Examples
+                    </a>
+                    <ul id="sm_examples" class="list-unstyled collapse">
+                        <li><a href="../examples/blank.html">Blank/Starter</a></li>
+                        <li><a href="../examples/pricing.html">Pricing</a></li>
+                        <li><a href="../examples/invoice.html">Invoice</a></li>
+                        <li><a href="../examples/faq.html">FAQ</a></li>
+                        <li><a href="../examples/login.html">Login</a></li>
+                    </ul>
+                </li>
+                <li><a href="../docs.html"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="content p-4">
+
+            <h2 class="mb-4">Alerts</h2>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Default Alerts
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-primary" role="alert">
+                        A simple primary alert—check it out!
+                    </div>
+                    <div class="alert alert-secondary" role="alert">
+                        A simple secondary alert—check it out!
+                    </div>
+                    <div class="alert alert-success" role="alert">
+                        A simple success alert—check it out!
+                    </div>
+                    <div class="alert alert-danger" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        A simple warning alert—check it out!
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        A simple info alert—check it out!
+                    </div>
+                    <div class="alert alert-light" role="alert">
+                        A simple light alert—check it out!
+                    </div>
+                    <div class="alert alert-dark mb-0" role="alert">
+                        A simple dark alert—check it out!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-white font-weight-bold">
+                    Dismissable Alerts
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-primary alert-dismissible" role="alert">
+                        A simple primary alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-secondary alert-dismissible" role="alert">
+                        A simple secondary alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        A simple success alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        A simple danger alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        A simple warning alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        A simple info alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-light alert-dismissible" role="alert">
+                        A simple light alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-dark alert-dismissible mb-0" role="alert">
+                        A simple dark alert—check it out!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/datatables.min.js"></script>
+    <script src="../../js/moment.min.js"></script>
+    <script src="../../js/fullcalendar.min.js"></script>
+    <script src="../../js/bootadmin.min.js"></script>
+
+</body>
+
+</html>

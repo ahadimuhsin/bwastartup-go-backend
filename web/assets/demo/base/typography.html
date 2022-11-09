@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../css/datatables.min.css">
+    <link rel="stylesheet" href="../../css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../../css/bootadmin.min.css">
+
+    <title>Typography | BootAdmin</title>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+        <a class="navbar-brand" href="../../index.html">BootAdmin</a>
+
+        <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-envelope"></i> 5</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-bell"></i> 3</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown"><i
+                            class="fa fa-user"></i> John Doe</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <div class="sidebar sidebar-dark bg-dark">
+            <ul class="list-unstyled">
+                <li><a href="../../demo.html"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+                <li>
+                    <a href="#sm_base" data-toggle="collapse" aria-expanded="true">
+                        <i class="fa fa-fw fa-cube"></i> Base
+                    </a>
+                    <ul id="sm_base" class="list-unstyled collapse show">
+                        <li><a href="colors.html">Colors</a></li>
+                        <li class="active"><a href="typography.html">Typography</a></li>
+                        <li><a href="tables.html">Tables</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                        <li><a href="modal.html">Modal</a></li>
+                        <li><a href="alerts.html">Alerts</a></li>
+                        <li><a href="popover.html">Popover</a></li>
+                        <li><a href="tooltip.html">Tooltip</a></li>
+                        <li><a href="dropdown.html">Dropdown</a></li>
+                        <li><a href="navs.html">Navs</a></li>
+                        <li><a href="collapse.html">Collapse</a></li>
+                        <li><a href="lists.html">Lists</a></li>
+                    </ul>
+                </li>
+                <li><a href="../icons.html"><i class="fa fa-fw fa-flag"></i> Icons</a></li>
+                <li><a href="../buttons.html"><i class="fa fa-fw fa-toggle-on"></i> Buttons</a></li>
+                <li><a href="../forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a></li>
+                <li><a href="../datatables.html"><i class="fa fa-fw fa-table"></i> Datatables</a></li>
+                <li><a href="../cards.html"><i class="fa fa-fw fa-address-card"></i> Cards</a></li>
+                <li><a href="../calendar.html"><i class="fa fa-fw fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="../charts.html"><i class="fa fa-fw fa-chart-pie"></i> Charts</a></li>
+                <li><a href="../maps.html"><i class="fa fa-fw fa-map-marker-alt"></i> Maps</a></li>
+                <li>
+                    <a href="#sm_examples" data-toggle="collapse">
+                        <i class="fa fa-fw fa-lightbulb"></i> Examples
+                    </a>
+                    <ul id="sm_examples" class="list-unstyled collapse">
+                        <li><a href="../examples/blank.html">Blank/Starter</a></li>
+                        <li><a href="../examples/pricing.html">Pricing</a></li>
+                        <li><a href="../examples/invoice.html">Invoice</a></li>
+                        <li><a href="../examples/faq.html">FAQ</a></li>
+                        <li><a href="../examples/login.html">Login</a></li>
+                    </ul>
+                </li>
+                <li><a href="../docs.html"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="content p-4">
+
+            <h2 class="mb-4">Typography</h2>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Headings
+                </div>
+                <div class="card-body">
+                    <p>Default headings:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <h1>h1. Bootstrap heading</h1>
+                        <h2>h2. Bootstrap heading</h2>
+                        <h3>h3. Bootstrap heading</h3>
+                        <h4>h4. Bootstrap heading</h4>
+                        <h5>h5. Bootstrap heading</h5>
+                        <h6 class="mb-0">h6. Bootstrap heading</h6>
+                    </div>
+
+                    <p>Customizing headings:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <h3 class="mb-0">
+                            Fancy display heading
+                            <small class="text-secondary">With faded secondary text</small>
+                        </h3>
+                    </div>
+
+                    <p>Display headings:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <h1 class="display-1">Display 1</h1>
+                        <h1 class="display-2">Display 2</h1>
+                        <h1 class="display-3">Display 3</h1>
+                        <h1 class="display-4 mb-0">Display 4</h1>
+                    </div>
+
+                    <p>Lead:</p>
+                    <div class="bg-light p-3">
+                        <p class="lead mb-0">
+                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
+                            commodo luctus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-white font-weight-bold">
+                    General
+                </div>
+                <div class="card-body">
+                    <p>Inline elements:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+                        <p><del>This line of text is meant to be treated as deleted text.</del></p>
+                        <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+                        <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+                        <p><u>This line of text will render as underlined</u></p>
+                        <p><small>This line of text is meant to be treated as fine print.</small></p>
+                        <p><strong>This line rendered as bold text.</strong></p>
+                        <p class="mb-0"><em>This line rendered as italicized text.</em></p>
+                    </div>
+
+                    <p>Abbreviations:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <p><abbr title="attribute">attr</abbr></p>
+                        <p class="mb-0"><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
+                    </div>
+
+                    <p>Blockquotes:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <blockquote class="blockquote mb-0">
+                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                erat a ante.</p>
+                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source
+                                    Title</cite></footer>
+                        </blockquote>
+                    </div>
+
+                    <p>State colors:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <p class="text-primary">Primary state text</p>
+                        <p class="text-secondary">Secondary state text</p>
+                        <p class="text-success">Success state text</p>
+                        <p class="text-danger">Danger state text</p>
+                        <p class="text-warning">Warning state text</p>
+                        <p class="text-info">Info state text</p>
+                        <p class="text-light">Light state text</p>
+                        <p class="text-dark mb-0">Dark state text</p>
+                    </div>
+
+                    <p>Links:</p>
+                    <div class="bg-light p-3 mb-3">
+                        <p><a href="#">Example link</a></p>
+                        <p class="font-weight-bold"><a href="#">Example bold link</a></p>
+                        <p class="text-uppercase mb-0"><a href="#">Example uppercase link</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/datatables.min.js"></script>
+    <script src="../../js/moment.min.js"></script>
+    <script src="../../js/fullcalendar.min.js"></script>
+    <script src="../../js/bootadmin.min.js"></script>
+
+</body>
+
+</html>

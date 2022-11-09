@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/gin-contrib/cors v1.4.0 // indirect
+	github.com/gin-contrib/multitemplate v0.0.0-20220829131020-8c2a8441bc2b // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect

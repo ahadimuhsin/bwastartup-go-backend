@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/datatables.min.css">
+    <link rel="stylesheet" href="../css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/bootadmin.min.css">
+
+    <title>Icons | BootAdmin</title>
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+        <a class="navbar-brand" href="../index.html">BootAdmin</a>
+
+        <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-envelope"></i> 5</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-bell"></i> 3</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown"><i
+                            class="fa fa-user"></i> John Doe</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <div class="sidebar sidebar-dark bg-dark">
+            <ul class="list-unstyled">
+                <li><a href="../demo.html"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+                <li>
+                    <a href="#sm_base" data-toggle="collapse">
+                        <i class="fa fa-fw fa-cube"></i> Base
+                    </a>
+                    <ul id="sm_base" class="list-unstyled collapse">
+                        <li><a href="base/colors.html">Colors</a></li>
+                        <li><a href="base/typography.html">Typography</a></li>
+                        <li><a href="base/tables.html">Tables</a></li>
+                        <li><a href="base/progress.html">Progress</a></li>
+                        <li><a href="base/modal.html">Modal</a></li>
+                        <li><a href="base/alerts.html">Alerts</a></li>
+                        <li><a href="base/popover.html">Popover</a></li>
+                        <li><a href="base/tooltip.html">Tooltip</a></li>
+                        <li><a href="base/dropdown.html">Dropdown</a></li>
+                        <li><a href="base/navs.html">Navs</a></li>
+                        <li><a href="base/collapse.html">Collapse</a></li>
+                        <li><a href="base/lists.html">Lists</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="icons.html"><i class="fa fa-fw fa-flag"></i> Icons</a></li>
+                <li><a href="buttons.html"><i class="fa fa-fw fa-toggle-on"></i> Buttons</a></li>
+                <li><a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a></li>
+                <li><a href="datatables.html"><i class="fa fa-fw fa-table"></i> Datatables</a></li>
+                <li><a href="cards.html"><i class="fa fa-fw fa-address-card"></i> Cards</a></li>
+                <li><a href="calendar.html"><i class="fa fa-fw fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="charts.html"><i class="fa fa-fw fa-chart-pie"></i> Charts</a></li>
+                <li><a href="maps.html"><i class="fa fa-fw fa-map-marker-alt"></i> Maps</a></li>
+                <li>
+                    <a href="#sm_examples" data-toggle="collapse">
+                        <i class="fa fa-fw fa-lightbulb"></i> Examples
+                    </a>
+                    <ul id="sm_examples" class="list-unstyled collapse">
+                        <li><a href="examples/blank.html">Blank/Starter</a></li>
+                        <li><a href="examples/pricing.html">Pricing</a></li>
+                        <li><a href="examples/invoice.html">Invoice</a></li>
+                        <li><a href="examples/faq.html">FAQ</a></li>
+                        <li><a href="examples/login.html">Login</a></li>
+                    </ul>
+                </li>
+                <li><a href="docs.html"><i class="fa fa-fw fa-book"></i> Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="content p-4">
+
+            <h2 class="mb-4">Icons</h2>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Basic Usage
+                </div>
+                <div class="card-body">
+                    <p>Basic icon:</p>
+                    <i class="fas fa-camera-retro"></i>
+
+                    <p class="mt-3">State colors:</p>
+                    <i class="fas fa-camera-retro text-primary"></i>
+                    <i class="fas fa-camera-retro text-secondary"></i>
+                    <i class="fas fa-camera-retro text-success"></i>
+                    <i class="fas fa-camera-retro text-danger"></i>
+                    <i class="fas fa-camera-retro text-warning"></i>
+                    <i class="fas fa-camera-retro text-info"></i>
+                    <i class="fas fa-camera-retro text-light"></i>
+                    <i class="fas fa-camera-retro text-dark"></i>
+
+                    <p class="mt-3">Sizing:</p>
+                    <i class="fas fa-camera-retro fa-5x"></i>
+                    <i class="fas fa-camera-retro fa-4x"></i>
+                    <i class="fas fa-camera-retro fa-3x"></i>
+                    <i class="fas fa-camera-retro fa-2x"></i>
+                    <i class="fas fa-camera-retro fa-lg"></i>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    List Icons
+                </div>
+                <div class="card-body">
+                    <ul class="fa-ul mb-0">
+                        <li><span class="fa-li"><i class="fas fa-check-square"></i></span>List icons can</li>
+                        <li><span class="fa-li"><i class="fas fa-check-square"></i></span>be used to</li>
+                        <li><span class="fa-li"><i class="fas fa-spinner fa-pulse"></i></span>replace bullets</li>
+                        <li><span class="fa-li"><i class="far fa-square"></i></span>in lists</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-white font-weight-bold">
+                    Styling
+                </div>
+                <div class="card-body">
+                    <p>Fixed width:</p>
+                    <div><i class="fas fa-home fa-fw"></i> Home</div>
+                    <div><i class="fas fa-info fa-fw"></i> Info</div>
+                    <div><i class="fas fa-book fa-fw"></i> Library</div>
+                    <div><i class="fas fa-pencil-alt fa-fw"></i> Applications</div>
+                    <div><i class="fas fa-cog fa-fw"></i> Settings</div>
+
+                    <p class="mt-3">Background color:</p>
+                    <i class="fas fa-camera-retro fa-fw fa-2x text-light bg-primary"></i>
+
+                    <p class="mt-3">Border:</p>
+                    <i class="fas fa-quote-left fa-2x fa-border"></i>
+
+                    <p class="mt-3">Animations:</p>
+                    <div class="fa-2x">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        <i class="fas fa-sync fa-spin"></i>
+                        <i class="fas fa-cog fa-spin"></i>
+                        <i class="fas fa-spinner fa-pulse"></i>
+                    </div>
+
+                    <p class="mt-3">Rotation:</p>
+                    <div class="fa-2x">
+                        <i class="fab fa-font-awesome"></i>
+                        <i class="fab fa-font-awesome fa-rotate-90"></i>
+                        <i class="fab fa-font-awesome fa-rotate-180"></i>
+                        <i class="fab fa-font-awesome fa-rotate-270"></i>
+                        <i class="fab fa-font-awesome fa-flip-horizontal"></i>
+                        <i class="fab fa-font-awesome fa-flip-vertical"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-white font-weight-bold">
+                    Stacked Icons
+                </div>
+                <div class="card-body">
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-square fa-stack-2x text-info"></i>
+                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-flag fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-square fa-stack-2x"></i>
+                        <i class="fas fa-terminal fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-camera fa-stack-1x"></i>
+                        <i class="fas fa-ban fa-stack-2x text-danger"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/datatables.min.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/fullcalendar.min.js"></script>
+    <script src="../js/bootadmin.min.js"></script>
+
+</body>
+
+</html>
