@@ -13,6 +13,7 @@ type Service interface {
 	SaveAvatar(id int, fileLocation string) (User, error)
 	GetUserById(id int) (User, error)
 	GetAllUsers() ([]User, error)
+	UpdateUser(input FormUpdateUserInput) (User, error)
 }
 
 // private
@@ -125,4 +126,25 @@ func (s *service) GetAllUsers() ([]User, error){
 	}
 
 	return users, nil
+}
+
+func (s *service) UpdateUser(input FormUpdateUserInput) (User, error){
+	user, err := s.repository.FindById(input.ID)
+
+	if err != nil{
+		return user, err
+	}
+
+	//mapping input ke tipe user
+	user.Name = input.Name
+	user.Email = input.Email
+	user.Occupation = input.Occupation
+
+	updatedUser, err := s.repository.Update(user)
+
+	if err != nil{
+		return updatedUser, err
+	}
+
+	return updatedUser, nil
 }

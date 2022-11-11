@@ -12,17 +12,23 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Occupation</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {{ range .users }}
                 <tr>
                     <td>
-                        <img class="img-fluid img-thumbnail" src="{{ .Avatar }}" width="60" alt="">
+                        <img class="img-fluid img-thumbnail" src="{{ .Avatar }}" width="60" alt="Avatar User {{ .Name }}">
                     </td>
                     <td>{{ .Name}}</td>
                     <td>{{ .Email }}</td>
                     <td>{{ .Occupation }}</td>
+                    <td>
+                        <a href="/users/edit/{{ .ID }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
                 </tr>
                 {{ end }}
             </tbody>

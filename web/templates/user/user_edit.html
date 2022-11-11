@@ -1,5 +1,5 @@
 {{ define "content" }}
-<h2 class="mb4">Create New User</h2>
+<h2 class="mb4">Edit User</h2>
 {{ if .Error }}
 <div>
     <div class="alert alert-danger">
@@ -9,7 +9,7 @@
 {{ end }}
 <div class="card mb-4">
     <div class="card-body">
-        <form action="/users" method="post">
+        <form action="/users/update/{{ .ID }}" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" placeholder="Enter Your Name" required class="form-control" value="{{ .Name }}">
@@ -22,10 +22,10 @@
                 <label for="occupation">Occupation</label>
                 <input type="text" name="occupation" placeholder="Enter Your Occupation" required class="form-control" value="{{ .Occupation }}">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Enter Your Password" required class="form-control" value="">
-            </div>
+            </div> -->
 
             <div>
                 <button type="submit" class="btn btn-primary">
