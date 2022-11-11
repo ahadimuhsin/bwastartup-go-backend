@@ -100,6 +100,7 @@ func main() {
 
 	//router web
 	router.GET("/users", userWebHandler.Index)
+	router.GET("/users/new", userWebHandler.New);
 	router.Run()
 
 }
