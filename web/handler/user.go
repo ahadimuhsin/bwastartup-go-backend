@@ -2,7 +2,11 @@ package handler
 
 import (
 	"bwastartup/user"
+	"errors"
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -27,22 +31,22 @@ func (h *userHandler) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "user_index.html", gin.H{"users": users})
 }
 
-func (h *userHandler) New(c *gin.Context){
+func (h *userHandler) New(c *gin.Context) {
 	c.HTML(http.StatusOK, "user_new.html", nil)
 }
 
-func (h *userHandler) Create(c *gin.Context){
+func (h *userHandler) Create(c *gin.Context) {
 	//tampung input
 	var input user.FormCreateUserInput
 
 	err := c.ShouldBind(&input)
 
-	if err != nil{
+	if err != nil {
 		//menampilkan kembali data inputan ke halaman input
 		//jika ada data form yg error
 		input.Error = err
 		c.HTML(http.StatusOK, "user_new.html", input)
-		return;
+		return
 	}
 
 	registerInput := user.RegisterUserInput{}
@@ -53,15 +57,15 @@ func (h *userHandler) Create(c *gin.Context){
 
 	_, err = h.userService.RegisterUser(registerInput)
 
-	if err != nil{
+	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
-		return;
+		return
 	}
 
 	c.Redirect(http.StatusFound, "/users")
 }
 
-func (h *userHandler) Edit(c *gin.Context){
+func (h *userHandler) Edit(c *gin.Context) {
 	//tangkap parameter
 	idParam := c.Param("id")
 	id, _ := strconv.Atoi(idParam)
@@ -69,8 +73,9 @@ func (h *userHandler) Edit(c *gin.Context){
 	//ambil user berdasarkan ID
 	registeredUser, err := h.userService.GetUserById(id)
 
-	if err != nil{
+	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
 	}
 
 	input := user.FormUpdateUserInput{}
@@ -82,7 +87,7 @@ func (h *userHandler) Edit(c *gin.Context){
 	c.HTML(http.StatusOK, "user_edit.html", input)
 }
 
-func (h *userHandler) Update(c *gin.Context){
+func (h *userHandler) Update(c *gin.Context) {
 	//tangkap parameter
 	idParam := c.Param("id")
 	id, _ := strconv.Atoi(idParam)
@@ -91,23 +96,73 @@ func (h *userHandler) Update(c *gin.Context){
 
 	err := c.ShouldBind(&input)
 
-	if err != nil{
+	if err != nil {
 		//menampilkan kembali data inputan ke halaman input
 		//jika ada data form yg error
 		input.Error = err
 		c.HTML(http.StatusOK, "user_edit.html", input)
-		return;
+		return
 	}
 
 	input.ID = id
 
 	_, err = h.userService.UpdateUser(input)
 
-	if err != nil{
+	if err != nil {
 		//skip
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
 
 	c.Redirect(http.StatusFound, "/users")
+}
+
+func (h *userHandler) NewAvatar(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)
+
+	c.HTML(http.StatusOK, "user_avatar.html", gin.H{"ID": id})
+}
+
+func (h *userHandler) UploadAvatar(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)
+	//buat folder images jika tidak ada
+	path := "images/"
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir(path, os.ModePerm)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
+	file, err := c.FormFile("avatar")
+	if err != nil {
+		//skip
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+	userId := id
+	// dir, err := os.Getwd()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	file_path := fmt.Sprintf("%s%d-%s", path, userId, file.Filename)
+
+	err = c.SaveUploadedFile(file, file_path)
+	if err != nil {
+		//skip
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+
+	_, err = h.userService.SaveAvatar(userId, file_path)
+	if err != nil {
+		//skip
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/users")
+
 }
