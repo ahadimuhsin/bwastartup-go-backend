@@ -3,6 +3,8 @@ package campaign
 import (
 	"bwastartup/user"
 	"time"
+
+	"github.com/leekchan/accounting"
 )
 
 //entity = model
@@ -23,6 +25,12 @@ type Campaign struct{
 	//untuk relasi
 	CampaignImages		[]CampaignImage
 	User 				user.User		
+}
+//memformat goal amount dari struct campaign
+func (c Campaign) GoalAmountFormat() string{
+	ac := accounting.Accounting{Symbol: "Rp ", Precision: 2, Thousand: ".", Decimal: ","}
+
+	return ac.FormatMoney(c.GoalAmount)
 }
 
 type CampaignImage struct{
