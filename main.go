@@ -68,7 +68,7 @@ func main() {
 
 	//bagian web
 	userWebHandler := webHandler.NewUserHandler(userService)
-	campaignWebHandler := webHandler.NewCampaignHandler(campaignService)
+	campaignWebHandler := webHandler.NewCampaignHandler(campaignService, userService)
 
 	router := gin.Default()
 	router.Use(cors.Default())
@@ -110,6 +110,8 @@ func main() {
 
 	// route campaign
 	router.GET("/campaigns", campaignWebHandler.Index)
+	router.GET("/campaigns/new", campaignWebHandler.New)
+	router.POST("/campaign", campaignWebHandler.Create)
 	router.Run()
 
 }
