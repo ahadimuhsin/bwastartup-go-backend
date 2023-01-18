@@ -28,7 +28,7 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) FindAll() ([]Campaign, error) {
 	var campaigns []Campaign
-	err := r.db.Preload("CampaignImages", "campaign_images.is_primary = 1").Find(&campaigns).Error
+	err := r.db.Preload("CampaignImages", "campaign_images.is_primary = 1").Preload("User").Find(&campaigns).Error
 
 	if err != nil {
 		return campaigns, err
@@ -40,7 +40,7 @@ func (r *repository) FindAll() ([]Campaign, error) {
 func (r *repository) FindByUserId(id int) ([]Campaign, error) {
 	var campaigns []Campaign //siapkan variable campaigns berbentuk slice
 	//Preload untuk memanggil relasi, yg didefinisikan di model, dan memanggilnya dengan kondisi
-	err := r.db.Where("user_id = ?", id).Preload("CampaignImages", "campaign_images.is_primary = 1").Find(&campaigns).Error
+	err := r.db.Where("user_id = ?", id).Preload("CampaignImages", "campaign_images.is_primary = 1").Preload("User").Find(&campaigns).Error
 
 	if err != nil {
 		return campaigns, err

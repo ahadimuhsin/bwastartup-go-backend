@@ -1,7 +1,7 @@
 {{ define "content" }}
-<h2 class="mb4">List of Campaign</h2>
+<h2 class="mb4">List of Campaigns</h2>
 <a href="/campaigns/new" class="btn btn-primary mb-3">
-    <i class="fas fa-plus"></i> New Campaign
+    <i class="fas fa-plus-circle"></i> New Campaign
 </a>
 <div class="card mb-4">
     <div class="card-body">
@@ -9,9 +9,11 @@
             <thead class="thead-light">
                 <tr>
                     <th></th>
-                    <th>Nama</th>
+                    <th>Owner</th>
+                    <th>Nama Projek</th>
                     <th>Short Description</th>
                     <th>Goal Amount</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -22,11 +24,15 @@
                         {{ if .CampaignImages}}
                         <img src="/{{ (index .CampaignImages 0).FileName }}" width="60" class="img-fluid img-thumbnail"> {{ end }}
                     </td>
+                    <td>{{ .User.Name}}</td>
                     <td>{{ .Name}}</td>
                     <td>{{ .ShortDescription }}</td>
                     <td>{{ .GoalAmountFormat}}</td>
                     <td>
                         <a href="/campaigns/{{ .ID }}"><i class="fas fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a href="/campaigns/image/{{ .ID }}"><i class="fas fa-camera"></i></a>
                     </td>
                 </tr>
                 {{ end }}
