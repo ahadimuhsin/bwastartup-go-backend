@@ -17,17 +17,17 @@ type EmailInput struct {
 }
 
 type FormCreateUserInput struct{
-	Name	string `form:"name" bindung : "required"`
-	Email	string `form:"email" bindung : "required,email"`
-	Occupation	string `form:"occupation" bindung : "required"`
-	Password	string `form:"password" bindung : "required"`
+	Name	string `form:"name" binding:"required"`
+	Email	string `form:"email" binding:"required,email"`
+	Occupation	string `form:"occupation" binding:"required"`
+	Password	string `form:"password" binding:"required"`
 	Error error
 }
 
 type FormUpdateUserInput struct{
 	ID		int
-	Name	string `form:"name" bindung : "required"`
-	Email	string `form:"email" bindung : "required,email"`
-	Occupation	string `form:"occupation" bindung : "required"`
+	Name	string `form:"name" binding:"required"`
+	Email	string `form:"email" binding:"required,email"`
+	Occupation	string `form:"occupation" binding:"required"`
 	Error error
 }
